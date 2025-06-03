@@ -4,13 +4,13 @@ import express, { Application, NextFunction, Request, Response } from 'express';
 import path from 'path';
 import dotenv from 'dotenv';
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
-import cors from 'cors';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import createHttpError from 'http-errors';
 import mongoose from 'mongoose';
 import helmet from 'helmet';
 import connectDB from './config/connectDB';
+import akunRoutes from './routes/akunRoutes';
 
 const PORT = process.env.PORT || 3500;
 const app: Application = express();
@@ -20,32 +20,10 @@ connectDB();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(helmet());
+app.use(morgan('dev'));
 
-if (process.env.NODE_ENV === 'development') {
-  app.use(morgan('dev'));
-}
-
-const whitelist = [
-  'http://localhost:3000',
-  'https://boxsystem.site',
-  'boxsystem.site',
-];
-const corsOptions = {
-  origin: (
-    origin: string | undefined,
-    callback: (err: Error | null, allow?: boolean) => void,
-  ) => {
-    if (!origin || whitelist.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      createHttpError(403, 'Not allowed by CORS');
-    }
-  },
-  credentials: true,
-};
-app.use(cors(corsOptions));
-
-app.all('*', (_req: Request, _res: Response, next: NextFunction) => {
+app.use('/akun', akunRoutes);
+app.use((_req: Request, _res: Response, next: NextFunction) => {
   next(createHttpError(404, 'Not Found'));
 });
 
