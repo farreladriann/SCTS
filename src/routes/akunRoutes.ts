@@ -3,8 +3,13 @@ import { akunController } from '../controllers/akunController';
 
 const router = express.Router();
 
-// POST /ogout
-// This route handles user logout (currently commented out)
+// GET /akun - Get all accounts
 router.get('/', akunController.getAllAkun);
+
+// POST /akun - Create new account
+router.post('/', akunController.createAkun);
+
+// GET /akun/:publicKey - Get account by public key
+router.get('/:publicKey', akunController.getAkunByPublicKey);
 
 export default router;

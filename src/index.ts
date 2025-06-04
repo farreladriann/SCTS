@@ -11,6 +11,8 @@ import mongoose from 'mongoose';
 import helmet from 'helmet';
 import connectDB from './config/connectDB';
 import akunRoutes from './routes/akunRoutes';
+import contractRoutes from './routes/contractRoutes';
+// Ensure that the environment variables are loaded
 
 const PORT = process.env.PORT || 3500;
 const app: Application = express();
@@ -22,7 +24,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(helmet());
 app.use(morgan('dev'));
 
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.use('/akun', akunRoutes);
+app.use('/contract', contractRoutes);
 app.use((_req: Request, _res: Response, next: NextFunction) => {
   next(createHttpError(404, 'Not Found'));
 });
