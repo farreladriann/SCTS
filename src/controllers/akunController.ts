@@ -62,17 +62,11 @@ export class akunController {
             const akun = await AkunModel.findOne({ publicKey });
 
             if (!akun) {
-                res.status(404).json({
-                    success: false,
-                    message: 'Account not found'
-                });
+                res.status(404).json({ message: 'Account not found' });
                 return;
             }
 
-            res.status(200).json({
-                success: true,
-                data: akun
-            });
+            res.status(200).json({role: akun.role});
         } catch (error) {
             next(error);
         }
