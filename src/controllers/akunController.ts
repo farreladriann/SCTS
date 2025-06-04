@@ -59,7 +59,9 @@ export class akunController {
     static async getAkunByPublicKey(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
             const { publicKey } = req.params;
-            const akun = await AkunModel.findOne({ publicKey });
+            const akun = await AkunModel.findOne({ 
+                publicKey: { $regex: new RegExp(`^${publicKey}$`, 'i') }
+            });
 
             if (!akun) {
                 res.status(404).json({ message: 'Account not found' });
