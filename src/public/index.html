@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCTS - Supply Chain Tracking System</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔗 SCTS - Supply Chain Tracking System</h1>
+            <div id="wallet-section">
+                <button id="connectWallet" class="btn btn-primary">Connect MetaMask</button>
+                <div id="wallet-info" style="display: none;">
+                    <p><strong>Address:</strong> <span id="userAddress"></span></p>
+                    <p><strong>Role:</strong> <span id="userRole">Loading...</span></p>
+                    <p><strong>Balance:</strong> <span id="userBalance"></span> ETH</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Role Selection -->
+        <div id="role-selection" class="card" style="display: none;">
+            <h2>👤 Select Your Role</h2>
+            <p>You don't have a role assigned. Please select one:</p>
+            <div class="role-buttons">
+                <button class="btn btn-role" data-role="Producer">🏭 Producer</button>
+                <button class="btn btn-role" data-role="Distributor">🚚 Distributor</button>
+                <button class="btn btn-role" data-role="Consumer">🛒 Consumer</button>
+            </div>
+        </div>
+
+        <!-- Producer Actions -->
+        <div id="producer-actions" class="card" style="display: none;">
+            <h2>🏭 Producer Actions</h2>
+            <div class="action-form">
+                <input type="text" id="productName" placeholder="Product Name" class="form-input">
+                <button id="mintSupply" class="btn btn-success">Mint New Supply</button>
+            </div>
+        </div>
+
+        <!-- Supply List -->
+        <div class="card">
+            <h2>📦 Supply Chain Items</h2>
+            <button id="refreshSupplies" class="btn btn-info">Refresh List</button>
+            <div id="supplies-list">
+                <p>Loading supplies...</p>
+            </div>
+        </div>
+
+        <!-- Transfer Modal -->
+        <div id="transferModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <h3>Transfer Supply</h3>
+                <p>Supply ID: <span id="transferSupplyId"></span></p>
+                <p>Product: <span id="transferProductName"></span></p>
+                <input type="text" id="transferToAddress" placeholder="Recipient Address" class="form-input">
+                <div class="modal-buttons">
+                    <button id="confirmTransfer" class="btn btn-success">Confirm Transfer</button>
+                    <button id="cancelTransfer" class="btn btn-secondary">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Transaction Status -->
+        <div id="transaction-status" class="card" style="display: none;">
+            <h3>Transaction Status</h3>
+            <p><strong>Hash:</strong> <span id="txHash"></span></p>
+            <p><strong>Status:</strong> <span id="txStatus">Pending...</span></p>
+            <a id="txLink" href="#" target="_blank">View on Etherscan</a>
+        </div>
+
+        <!-- Logs -->
+        <div class="card">
+            <h2>📋 Activity Logs</h2>
+            <div id="logs" class="logs-container"></div>
+        </div>
+    </div>
+
+    <!-- Load Ethers.js first -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
+    <!-- Then load app.js -->
+    <script src="/app.js"></script>
+</body>
+</html>

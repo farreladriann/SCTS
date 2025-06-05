@@ -21,10 +21,11 @@ connectDB();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(helmet());
 app.use(morgan('dev'));
-
 app.use(express.static(path.join(__dirname, 'public')));
+app.get('/', (_req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, 'public', 'dashboard.html'));
+});
 
 app.use('/akun', akunRoutes);
 app.use('/contract', contractRoutes);
