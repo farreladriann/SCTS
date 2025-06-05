@@ -52,7 +52,6 @@ export class ContractService {
     }
   }
 
-  // Get specific supply by ID
   async getSupplyById(supplyId: number): Promise<any | null> {
     try {
       const [supplyData, history] = await this.contract.getSupplyChainHistory(supplyId);
@@ -77,7 +76,6 @@ export class ContractService {
     }
   }
 
-  // Get contract subscription ID
   async getSubscriptionId(): Promise<string> {
     try {
       const subId = await this.contract.s_subscriptionId();
@@ -88,7 +86,6 @@ export class ContractService {
     }
   }
 
-  // Get DON ID
   async getDonId(): Promise<string> {
     try {
       const donId = await this.contract.DON_ID();

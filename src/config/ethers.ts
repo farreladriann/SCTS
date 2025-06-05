@@ -7,7 +7,6 @@ const RPC_URL = process.env.RPC_URL || 'https://sepolia.infura.io/v3/YOUR_INFURA
 let provider: ethers.Provider;
 let contract: ethers.Contract;
 
-// Initialize provider and contract
 export const initializeEthers = () => {
   try {
     provider = new ethers.JsonRpcProvider(RPC_URL);

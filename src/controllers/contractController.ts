@@ -4,7 +4,6 @@ import { ContractService } from '../services/contractService';
 const contractService = new ContractService();
 
 export class ContractController {
-  // Get all supply items
   static async getAllSupplies(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const supplies = await contractService.getAllSupplyItems();
@@ -17,7 +16,6 @@ export class ContractController {
     }
   }
 
-  // Get supply by ID
   static async getSupplyById(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const { supplyId } = req.params;
@@ -40,7 +38,6 @@ export class ContractController {
     }
   }
 
-  // Get contract status
   static async getContractStatus(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const subscriptionId = await contractService.getSubscriptionId();
