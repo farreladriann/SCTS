@@ -52,7 +52,7 @@ npm install
 Buat file `.env` di root directory dengan konfigurasi berikut:
 ```env
 MONGO_URI="mongodb+srv://username:password@cluster.mongodb.net/scts?retryWrites=true&w=majority"
-CONTRACT_ADDRESS="0x75a4666eaa87d72f246bee1c8d7b58b7d2714601"
+CONTRACT_ADDRESS="0x9842fd07ef0d30f42ef5bd971b7e210f1f760cd9"
 RPC_URL="https://sepolia.infura.io/v3/YOUR_INFURA_PROJECT_ID"
 ```
 
@@ -145,7 +145,7 @@ Backend menyediakan API endpoints:
 - **API error**: Check MongoDB connection dan pastikan .env sudah benar
 
 ### Smart Contract
-Contract address: `0x75a4666eaa87d72f246bee1c8d7b58b7d2714601`
+Contract address: `0x9842fd07ef0d30f42ef5bd971b7e210f1f760cd9`
 Deployed on Sepolia testnet dengan Chainlink Functions integration.
 
 ---
