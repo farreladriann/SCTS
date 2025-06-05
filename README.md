@@ -2,6 +2,14 @@
 
 SCTS adalah sistem pelacakan rantai pasok berbasis blockchain yang menggunakan Ethereum smart contract dan Chainlink Functions untuk verifikasi peran (role) secara otomatis. Sistem ini memungkinkan tracking barang dari Producer → Distributor → Consumer dengan verifikasi peran yang terintegrasi dengan database MongoDB.
 
+## 🌐 Live Demo
+Aplikasi sudah dideploy dan dapat diakses secara publik di:
+**https://scts.vercel.app**
+
+## 📹 Video Demo
+Lihat demo lengkap aplikasi di YouTube:
+**[SCTS Demo Video](https://youtu.be/2dxk6PcjzAY)**
+
 ## Fitur Utama
 - ✅ Role-based access control (Producer, Distributor, Consumer)
 - ✅ Supply chain tracking dengan blockchain
@@ -35,7 +43,7 @@ npm install -g typescript ts-node nodemon
 ### 2. Local Dependencies
 Clone repository dan install dependencies:
 ```bash
-git clone <repository-url>
+git clone https://github.com/farreladriann/SCTS.git
 cd SCTS
 npm install
 ```
@@ -109,6 +117,17 @@ Testing complete flow:
 - **Supply List**: Refresh untuk melihat update terbaru
 - **Transaction Status**: Track status transaksi real-time
 - **Etherscan**: Klik link untuk melihat detail transaksi
+
+**⚠️ Catatan Penting**: Perubahan supply tidak langsung muncul setelah transaksi berhasil. Biasanya memerlukan waktu sekitar **1 menit** setelah transaksi berhasil untuk data supply terupdate di interface. Hal ini disebabkan oleh:
+- Proses konfirmasi block di Sepolia testnet
+- Sinkronisasi data antara smart contract dan database
+- Chainlink Functions processing time untuk verifikasi role
+
+**🔄 Oracle Issue**: Terkadang meskipun semua konfigurasi sudah benar, transaksi berhasil tetapi oracle (Chainlink Functions) gagal menerima atau memproses data dari API backend. Jika hal ini terjadi:
+- **Solusi**: Ulangi transaksi sekali lagi
+- Biasanya berhasil pada percobaan kedua atau ketiga
+- Hal ini normal dalam testnet environment
+- Transaksi tetap tercatat di blockchain, tapi verifikasi role gagal
 
 ### API Endpoints
 Backend menyediakan API endpoints:

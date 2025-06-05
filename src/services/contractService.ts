@@ -13,39 +13,23 @@ export class ContractService {
   // Get all supply items from contract
   async getAllSupplyItems(): Promise<any[]> {
     try {
-      const supplies: any[] = [];
-      let supplyId = 1;
+      // Use the new getAllSupplyChainHistory function from the smart contract
+      const allSupplies = await this.contract.getAllSupplyChainHistory();
       
-      // Keep fetching until we get an error (supply doesn't exist)
-      while (true) {
-        try {
-          const supply = await this.contract.supplyItems(supplyId);
-          if (supply.id.toString() === '0') break;
-          
-          const [supplyData, history] = await this.contract.getSupplyChainHistory(supplyId);
-          
-          supplies.push({
-            id: supplyData.id.toString(),
-            namaBarang: supplyData.namaBarang,
-            createdAt: new Date(Number(supplyData.createdAt) * 1000),
-            updatedAt: new Date(Number(supplyData.updatedAt) * 1000),
-            currentOwner: supplyData.currentOwner,
-            currentOwnerRole: this.getRoleName(supplyData.currentOwnerRole),
-            history: history.map((h: any) => ({
-              from: h.from,
-              to: h.to,
-              timestamp: new Date(Number(h.timestamp) * 1000),
-              action: h.action
-            }))
-          });
-          
-          supplyId++;
-        } catch (error) {
-          break; // No more supplies
-        }
-      }
-      
-      return supplies;
+      return allSupplies.map((supply: any) => ({
+        id: supply.id.toString(),
+        namaBarang: supply.namaBarang,
+        createdAt: new Date(Number(supply.createdAt) * 1000),
+        updatedAt: new Date(Number(supply.updatedAt) * 1000),
+        currentOwner: supply.currentOwner,
+        currentOwnerRole: this.getRoleName(supply.currentOwnerRole),
+        history: supply.history.map((h: any) => ({
+          from: h.from,
+          to: h.to,
+          timestamp: new Date(Number(h.timestamp) * 1000),
+          action: h.action
+        }))
+      }));
     } catch (error) {
       console.error('Error fetching supply items:', error);
       return [];

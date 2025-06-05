@@ -173,6 +173,34 @@ contract SupplyChain is FunctionsClient {
         SupplyItem storage item = supplyItems[_supplyId];
         return (item, item.history);
     }
+
+    function getAllSupplyChainHistory() external view returns (SupplyItem[] memory) {
+        SupplyItem[] memory allSupplies = new SupplyItem[](s_supplyIdCounter);
+        
+        for (uint256 i = 1; i <= s_supplyIdCounter; i++) {
+            if (supplyItems[i].id != 0) {
+                // Buat copy dari supply item untuk menghindari storage pointer issues
+                SupplyItem memory item = SupplyItem({
+                    id: supplyItems[i].id,
+                    namaBarang: supplyItems[i].namaBarang,
+                    createdAt: supplyItems[i].createdAt,
+                    updatedAt: supplyItems[i].updatedAt,
+                    currentOwner: supplyItems[i].currentOwner,
+                    currentOwnerRole: supplyItems[i].currentOwnerRole,
+                    history: new HistoryEntry[](supplyItems[i].history.length)
+                });
+                
+                // Copy history entries
+                for (uint256 j = 0; j < supplyItems[i].history.length; j++) {
+                    item.history[j] = supplyItems[i].history[j];
+                }
+                
+                allSupplies[i-1] = item;
+            }
+        }
+        
+        return allSupplies;
+    }
     
     // =====================================
     // INTERNAL & CHAINLINK FUNCTIONS
